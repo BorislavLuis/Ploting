@@ -5,8 +5,11 @@
 #include "imgui_impl_opengl3.h"
 #include "implot.h"
 #include "implot_internal.h"
+#include "imgui_user.h"
 #include <iostream>
-
+#include <ctime>
+static int scrWidth = 1920;
+static int scrHeight = 1080;
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double dx, double dy);
 void processInput(GLFWwindow* window);
@@ -21,7 +24,7 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 
-	GLFWwindow* window = glfwCreateWindow(1024, 768, "ImGuiPlot", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(scrWidth, scrHeight, "ImGuiPlot", NULL, NULL);
 	if (!window)
 	{
 		std::cout << "Window problem" << std::endl;
@@ -54,7 +57,10 @@ int main()
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
 	//io.ConfigViewportsNoAutoMerge = true;
 	//io.ConfigViewportsNoTaskBarIcon = true;
-
+	io.Fonts->AddFontFromFileTTF("Furore.otf", 18, NULL, io.Fonts->GetGlyphRangesCyrillic());
+	io.Fonts->AddFontFromFileTTF("Wizland.ttf", 18, NULL, io.Fonts->GetGlyphRangesCyrillic());
+	io.Fonts->AddFontFromFileTTF("Jazz_Ball_Bold.ttf", 18, NULL, io.Fonts->GetGlyphRangesCyrillic());
+	io.Fonts->AddFontFromFileTTF("Jazz_Ball_Regular.ttf", 18, NULL, io.Fonts->GetGlyphRangesCyrillic());
 	// Setup Dear ImGui style
 	ImGui::StyleColorsDark();
 	//ImGui::StyleColorsLight();
@@ -75,7 +81,7 @@ int main()
 	bool show_demo_window = true;
 	bool show_another_window = false;
 	ImVec4 clear_color = ImVec4(0.2f, 0.7f, 0.4f, 1.0f);
-
+	
 	while (!glfwWindowShouldClose(window))
 	{
 		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
@@ -85,20 +91,36 @@ int main()
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
-
+		ImGui::DockSpaceOverViewport(NULL, 0);
 		// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-		if (show_demo_window)
-			ImGui::ShowDemoWindow(&show_demo_window);
+		//if (show_demo_window)
+			//ImGui::ShowDemoWindow(&show_demo_window);
 
 		// 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
 		{
 			static float f = 0.0f;
 			static int counter = 0;
+			static int day = 0;
+			static int mounth = 0;
+			static int year = 0;
+			static tm myDate = {};
+			//io.Fonts->GetGlyphRangesCyrillic();
+			ImGui::Begin("Configuration");  
+			ImGui::Text(u8"Избор на дата");
+			if(ImGui::DateChooser(u8"Дата", myDate, "%d/%m/%Y"))
+			{
 
-			ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-
-			ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-			ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
+			}
+			const char* mounthItems[] = { "1","2","3","4","5","6","7","8","9","10","11","12" };
+			const char* dayItems[] = { "1","2","3","4","5","6","7","8","9","10","11","12" };
+			const char* yearItems[] = { "2022","2023","2024","2025" ,"2026","2027" ,"2028","2029","2030" };
+			ImGui::Combo(u8"Месец", &mounth, mounthItems, IM_ARRAYSIZE(mounthItems));
+			ImGui::Combo(u8"Ден", &day, dayItems, IM_ARRAYSIZE(dayItems));
+			ImGui::Combo(u8"Година", &year, yearItems, IM_ARRAYSIZE(yearItems));
+			if (ImGui::CollapsingHeader("Open file"))
+			{
+				ImGui::Text("Proba");
+			}
 			ImGui::Checkbox("Another Window", &show_another_window);
 
 			ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
@@ -110,8 +132,46 @@ int main()
 			ImGui::Text("counter = %d", counter);
 
 			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+			static ImS8  data[10] = { 1,2,3,4,5,6,7,8,9,10 };
+			if (ImPlot::BeginPlot("Bar Plot")) {
+				ImPlot::PlotBars("Vertical", data, 10, 0.7, 1);
+				ImPlot::PlotBars("Horizontal", data, 10, 0.4, 1, ImPlotBarsFlags_Horizontal);
+				ImPlot::EndPlot();
+			}
+			ImGui::Separator();
+			ImGui::Separator();
+			ImGui::Separator();
+			ImGui::Separator();
+			ImGui::Separator();
+			ImGui::Separator();
+			ImGui::ShowFontSelector("Font");
+			ImGui::ShowStyleSelector("ImGui Style");
+			ImGuiStyle stl = ImGui::GetStyle();
+			std::cout << stl.Colors->x << std::endl;
+			ImPlot::ShowStyleSelector("ImPlot Style");
+			ImPlot::ShowColormapSelector("ImPlot Colormap");
+			ImPlot::ShowInputMapSelector("Input Map");
+			ImGui::Separator();
+			ImGui::Checkbox("Use Local Time", &ImPlot::GetStyle().UseLocalTime);
+			ImGui::Checkbox("Use ISO 8601", &ImPlot::GetStyle().UseISO8601);
+			ImGui::Checkbox("Use 24 Hour Clock", &ImPlot::GetStyle().Use24HourClock);
+			ImGui::Separator();
+			if (ImPlot::BeginPlot("Preview")) {
+				static double now = (double)time(0);
+				ImPlot::SetupAxisScale(ImAxis_X1, ImPlotScale_Time);
+				ImPlot::SetupAxisLimits(ImAxis_X1, now, now + 24 * 3600);
+				for (int i = 0; i < 10; ++i) {
+					double x[2] = { now, now + 24 * 3600 };
+					double y[2] = { 0,i / 9.0 };
+					ImGui::PushID(i);
+					ImPlot::PlotLine("##Line", x, y, 2);
+					ImGui::PopID();
+				}
+				ImPlot::EndPlot();
+			}
 			ImGui::End();
 		}
+
 
 		// 3. Show another simple window.
 		if (show_another_window)
@@ -122,59 +182,13 @@ int main()
 				show_another_window = false;
 			ImGui::End();
 		}
-		static float xs[1001], xs2[1001], ys1[1001], ys2[1001], ys3[1001];
-		for (int i = 0; i < 1001; ++i) {
-			xs[i] = (i * 0.1f);
-			xs2[i] = xs[i] + 10.0f;
-			ys1[i] = sinf(xs[i]) * 3 + 1;
-			ys2[i] = cosf(xs[i]) * 0.2f + 0.5f;
-			ys3[i] = sinf(xs[i] + 0.5f) * 100 + 200;
-		}
 
-		static bool x2_axis = true;
-		static bool y2_axis = true;
-		static bool y3_axis = true;
+		ImGui::Begin("Second window");
+		ImGui::Text("Test window");
+			ImGui::Button("Open");
+			ImGui::Separator();
+		ImGui::End();
 
-		ImGui::Checkbox("X-Axis 2", &x2_axis);
-		ImGui::SameLine();
-		ImGui::Checkbox("Y-Axis 2", &y2_axis);
-		ImGui::SameLine();
-		ImGui::Checkbox("Y-Axis 3", &y3_axis);
-
-		ImGui::BulletText("You can drag axes to the opposite side of the plot.");
-		ImGui::BulletText("Hover over legend items to see which axis they are plotted on.");
-
-		if (ImPlot::BeginPlot("Multi-Axis Plot", ImVec2(-1, 0))) {
-			ImPlot::SetupAxes("X-Axis 1", "Y-Axis 1");
-			ImPlot::SetupAxesLimits(0, 100, 0, 10);
-			if (x2_axis) {
-				ImPlot::SetupAxis(ImAxis_X2, "X-Axis 2", ImPlotAxisFlags_AuxDefault);
-				ImPlot::SetupAxisLimits(ImAxis_X2, 0, 100);
-			}
-			if (y2_axis) {
-				ImPlot::SetupAxis(ImAxis_Y2, "Y-Axis 2", ImPlotAxisFlags_AuxDefault);
-				ImPlot::SetupAxisLimits(ImAxis_Y2, 0, 1);
-			}
-			if (y3_axis) {
-				ImPlot::SetupAxis(ImAxis_Y3, "Y-Axis 3", ImPlotAxisFlags_AuxDefault);
-				ImPlot::SetupAxisLimits(ImAxis_Y3, 0, 300);
-			}
-
-			ImPlot::PlotLine("f(x) = x", xs, xs, 1001);
-			if (x2_axis) {
-				ImPlot::SetAxes(ImAxis_X2, ImAxis_Y1);
-				ImPlot::PlotLine("f(x) = sin(x)*3+1", xs2, ys1, 1001);
-			}
-			if (y2_axis) {
-				ImPlot::SetAxes(ImAxis_X1, ImAxis_Y2);
-				ImPlot::PlotLine("f(x) = cos(x)*.2+.5", xs, ys2, 1001);
-			}
-			if (y3_axis) {
-				ImPlot::SetAxes(ImAxis_X2, ImAxis_Y3);
-				ImPlot::PlotLine("f(x) = sin(x+.5)*100+200 ", xs2, ys3, 1001);
-			}
-			ImPlot::EndPlot();
-		}
 
 		// Rendering
 		ImGui::Render();
@@ -215,7 +229,9 @@ int main()
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-	glViewport(0, 0, 1024, 768);
+	glViewport(0, 0, width, height);
+	scrWidth = width;
+	scrHeight = height;
 }
 void processInput(GLFWwindow* window)
 {
