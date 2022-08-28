@@ -151,38 +151,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="addons\imguibindings\imguibindings.cpp" />
-    <ClCompile Include="addons\imguicodeeditor\imguicodeeditor.cpp" />
-    <ClCompile Include="addons\imguidatechooser\imguidatechooser.cpp" />
-    <ClCompile Include="addons\imguidock\imguidock.cpp" />
-    <ClCompile Include="addons\imguifilesystem\imguifilesystem.cpp" />
-    <ClCompile Include="addons\imguifilesystem\minizip\ioapi.c" />
-    <ClCompile Include="addons\imguifilesystem\minizip\unzip.c" />
-    <ClCompile Include="addons\imguifilesystem\minizip\zip.c" />
-    <ClCompile Include="addons\imguihelper\imguihelper.cpp" />
-    <ClCompile Include="addons\imguilistview\imguilistview.cpp" />
-    <ClCompile Include="addons\imguinodegrapheditor\imguinodegrapheditor.cpp" />
-    <ClCompile Include="addons\imguipanelmanager\imguipanelmanager.cpp" />
-    <ClCompile Include="addons\imguistring\imguistring.cpp" />
-    <ClCompile Include="addons\imguistyleserializer\imguistyleserializer.cpp" />
-    <ClCompile Include="addons\imguitabwindow\imguitabwindow.cpp" />
-    <ClCompile Include="addons\imguitoolbar\imguitoolbar.cpp" />
-    <ClCompile Include="addons\imguivariouscontrols\imguivariouscontrols.cpp" />
-    <ClCompile Include="addons\imguiyesaddons\imguibz2.cpp" />
-    <ClCompile Include="addons\imguiyesaddons\imguiemscriptenpersistentfolder.cpp" />
-    <ClCompile Include="addons\imguiyesaddons\imguiimageeditor.cpp" />
-    <ClCompile Include="addons\imguiyesaddons\imguiimageeditor_plugins\jo_gif.cpp" />
-    <ClCompile Include="addons\imguiyesaddons\imguiimageeditor_plugins\lodepng.cpp" />
-    <ClCompile Include="addons\imguiyesaddons\imguiminigames.cpp" />
-    <ClCompile Include="addons\imguiyesaddons\imguipdfviewer.cpp" />
-    <ClCompile Include="addons\imguiyesaddons\imguisdf.cpp" />
-    <ClCompile Include="addons\imguiyesaddons\imguisoloud.cpp" />
-    <ClCompile Include="addons\imguiyesaddons\imguisqlite3.cpp" />
-    <ClCompile Include="addons\imguiyesaddons\imguistringifier.cpp" />
-    <ClCompile Include="addons\imguiyesaddons\imguitinyfiledialogs.cpp" />
-    <ClCompile Include="addons\imguiyesaddons\stb_vorbis.c" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imguidatechooser.cpp" />
     <ClCompile Include="imgui_demo.cpp" />
     <ClCompile Include="imgui_draw.cpp" />
     <ClCompile Include="imgui_impl_glfw.cpp" />
@@ -195,59 +166,13 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="addons\imguibindings\edtaa3func.h" />
-    <ClInclude Include="addons\imguibindings\imguibindings.h" />
-    <ClInclude Include="addons\imguibindings\ImImpl_Binding_Direct3D9.h" />
-    <ClInclude Include="addons\imguibindings\ImImpl_Binding_Glfw3.h" />
-    <ClInclude Include="addons\imguibindings\ImImpl_Binding_Glut.h" />
-    <ClInclude Include="addons\imguibindings\ImImpl_Binding_SDL2.h" />
-    <ClInclude Include="addons\imguibindings\ImImpl_Binding_WinAPI.h" />
-    <ClInclude Include="addons\imguibindings\stb_image.h" />
-    <ClInclude Include="addons\imguicodeeditor\imguicodeeditor.h" />
-    <ClInclude Include="addons\imguicodeeditor\utf8helper.h" />
-    <ClInclude Include="addons\imguidatechooser\imguidatechooser.h" />
-    <ClInclude Include="addons\imguidock\imguidock.h" />
-    <ClInclude Include="addons\imguifilesystem\dirent_portable.h" />
-    <ClInclude Include="addons\imguifilesystem\imguifilesystem.h" />
-    <ClInclude Include="addons\imguifilesystem\minizip\crypt.h" />
-    <ClInclude Include="addons\imguifilesystem\minizip\ioapi.h" />
-    <ClInclude Include="addons\imguifilesystem\minizip\unzip.h" />
-    <ClInclude Include="addons\imguifilesystem\minizip\zip.h" />
-    <ClInclude Include="addons\imguihelper\imguihelper.h" />
-    <ClInclude Include="addons\imguilistview\imguilistview.h" />
-    <ClInclude Include="addons\imguinodegrapheditor\imguinodegrapheditor.h" />
-    <ClInclude Include="addons\imguipanelmanager\imguipanelmanager.h" />
-    <ClInclude Include="addons\imguistring\imguistring.h" />
-    <ClInclude Include="addons\imguistyleserializer\imguistyleserializer.h" />
-    <ClInclude Include="addons\imguitabwindow\imguitabwindow.h" />
-    <ClInclude Include="addons\imguitoolbar\imguitoolbar.h" />
-    <ClInclude Include="addons\imguivariouscontrols\imguivariouscontrols.h" />
-    <ClInclude Include="addons\imguiyesaddons\imguibz2.h" />
-    <ClInclude Include="addons\imguiyesaddons\imguiemscriptenpersistentfolder.h" />
-    <ClInclude Include="addons\imguiyesaddons\imguiimageeditor.h" />
-    <ClInclude Include="addons\imguiyesaddons\imguiimageeditor_plugins\lodepng.h" />
-    <ClInclude Include="addons\imguiyesaddons\imguiimageeditor_plugins\nanosvg.h" />
-    <ClInclude Include="addons\imguiyesaddons\imguiimageeditor_plugins\nanosvgrast.h" />
-    <ClInclude Include="addons\imguiyesaddons\imguiimageeditor_plugins\qoi.h" />
-    <ClInclude Include="addons\imguiyesaddons\imguiimageeditor_plugins\stb_image_resize.h" />
-    <ClInclude Include="addons\imguiyesaddons\imguiimageeditor_plugins\stb_image_write.h" />
-    <ClInclude Include="addons\imguiyesaddons\imguiimageeditor_plugins\tiny_ico.h" />
-    <ClInclude Include="addons\imguiyesaddons\imguiimageeditor_plugins\tiny_jpeg.h" />
-    <ClInclude Include="addons\imguiyesaddons\imguiminigames.h" />
-    <ClInclude Include="addons\imguiyesaddons\imguipdfviewer.h" />
-    <ClInclude Include="addons\imguiyesaddons\imguisdf.h" />
-    <ClInclude Include="addons\imguiyesaddons\imguisoloud.h" />
-    <ClInclude Include="addons\imguiyesaddons\imguisqlite3.h" />
-    <ClInclude Include="addons\imguiyesaddons\imguistringifier.h" />
-    <ClInclude Include="addons\imguiyesaddons\imguitinyfiledialogs.h" />
-    <ClInclude Include="addons\imgui_user.h" />
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />
+    <ClInclude Include="imguidatechooser.h" />
     <ClInclude Include="imgui_impl_glfw.h" />
     <ClInclude Include="imgui_impl_opengl3.h" />
     <ClInclude Include="imgui_impl_opengl3_loader.h" />
     <ClInclude Include="imgui_internal.h" />
-    <ClInclude Include="imgui_user.h" />
     <ClInclude Include="implot.h" />
     <ClInclude Include="implot_internal.h" />
     <ClInclude Include="imstb_rectpack.h" />
@@ -255,10 +180,7 @@
     <ClInclude Include="imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="addons\imguiyesaddons\imguimodplug.cpp.inl" />
-    <None Include="addons\imgui_user.inl" />
     <None Include="imgui.ini" />
-    <None Include="imgui_user.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

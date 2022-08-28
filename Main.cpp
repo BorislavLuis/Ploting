@@ -1,11 +1,11 @@
-#include <glad/glad.h>
+п»ї#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include "implot.h"
 #include "implot_internal.h"
-#include "imgui_user.h"
+#include "imguidatechooser.h"
 #include <iostream>
 #include <ctime>
 static int scrWidth = 1920;
@@ -106,17 +106,22 @@ int main()
 			static tm myDate = {};
 			//io.Fonts->GetGlyphRangesCyrillic();
 			ImGui::Begin("Configuration");  
-			ImGui::Text(u8"Избор на дата");
-			if(ImGui::DateChooser(u8"Дата", myDate, "%d/%m/%Y"))
+			ImGui::Text(u8"РР·Р±РѕСЂ РЅР° РґР°С‚Р°");
+			if (ImGui::DateChooser(u8"Р”Р°С‚Р°", myDate, "%d/%m/%Y"))
 			{
-
+				ImGui::Begin(u8"РґРµРЅ");
+				char* buf;
+				//itoa(myDate.tm_mday, buf, 10);
+				//ImGui::Text(buf);
+				ImGui::End();
 			}
+
 			const char* mounthItems[] = { "1","2","3","4","5","6","7","8","9","10","11","12" };
 			const char* dayItems[] = { "1","2","3","4","5","6","7","8","9","10","11","12" };
 			const char* yearItems[] = { "2022","2023","2024","2025" ,"2026","2027" ,"2028","2029","2030" };
-			ImGui::Combo(u8"Месец", &mounth, mounthItems, IM_ARRAYSIZE(mounthItems));
-			ImGui::Combo(u8"Ден", &day, dayItems, IM_ARRAYSIZE(dayItems));
-			ImGui::Combo(u8"Година", &year, yearItems, IM_ARRAYSIZE(yearItems));
+			ImGui::Combo(u8"ГЊГҐГ±ГҐГ¶", &mounth, mounthItems, IM_ARRAYSIZE(mounthItems));
+			ImGui::Combo(u8"Г„ГҐГ­", &day, dayItems, IM_ARRAYSIZE(dayItems));
+			ImGui::Combo(u8"ГѓГ®Г¤ГЁГ­Г ", &year, yearItems, IM_ARRAYSIZE(yearItems));
 			if (ImGui::CollapsingHeader("Open file"))
 			{
 				ImGui::Text("Proba");
