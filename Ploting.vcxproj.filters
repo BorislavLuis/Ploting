@@ -54,6 +54,12 @@
     <ClCompile Include="imguidatechooser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="wrapper\menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wrapper\sceen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -90,6 +96,12 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="imguidatechooser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wrapper\menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wrapper\sceen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

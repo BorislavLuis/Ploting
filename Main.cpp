@@ -8,6 +8,7 @@
 #include "imguidatechooser.h"
 #include <iostream>
 #include <ctime>
+#include <string>
 static int scrWidth = 1920;
 static int scrHeight = 1080;
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -16,6 +17,12 @@ void processInput(GLFWwindow* window);
 static float xs1[1001], ys1[1001];
 static double xs2[20], ys2[20];
 static bool opn = true;
+template <typename T>
+inline T RandomRange(T min, T max) {
+	T scale = rand() / (T)RAND_MAX;
+	return min + scale * (max - min);
+}
+
 int main()
 {
 	glfwInit();
@@ -80,14 +87,24 @@ int main()
 
 	bool show_demo_window = true;
 	bool show_another_window = false;
+	bool show_status = false;
 	ImVec4 clear_color = ImVec4(0.2f, 0.7f, 0.4f, 1.0f);
 	
+	bool lt0201 = false;
+	bool lt0202 = false;
+	bool lt0203 = false;
+	bool lt0204 = false;
+	bool lt0205 = false;
+	bool lt0206 = false;
+	bool lt0207 = false;
+	bool lt0301 = false;
+	bool lt0302 = false;
 	while (!glfwWindowShouldClose(window))
 	{
 		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		processInput(window);
-
+		static ImS8  data[10] = { 1,2,3,4,5,6,7,8,9,10 };
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
@@ -105,74 +122,58 @@ int main()
 			static int year = 0;
 			static tm myDate = {};
 			//io.Fonts->GetGlyphRangesCyrillic();
-			ImGui::Begin("Configuration");  
-			ImGui::Text(u8"Избор на дата");
-			if (ImGui::DateChooser(u8"Дата", myDate, "%d/%m/%Y"))
+			ImGui::Begin(u8"Главно меню");  
+			if (ImGui::CollapsingHeader(u8"Избор на дата"))
 			{
-				ImGui::Begin(u8"ден");
-				char* buf;
-				//itoa(myDate.tm_mday, buf, 10);
-				//ImGui::Text(buf);
-				ImGui::End();
-			}
-
-			const char* mounthItems[] = { "1","2","3","4","5","6","7","8","9","10","11","12" };
-			const char* dayItems[] = { "1","2","3","4","5","6","7","8","9","10","11","12" };
-			const char* yearItems[] = { "2022","2023","2024","2025" ,"2026","2027" ,"2028","2029","2030" };
-			ImGui::Combo(u8"Ìåñåö", &mounth, mounthItems, IM_ARRAYSIZE(mounthItems));
-			ImGui::Combo(u8"Äåí", &day, dayItems, IM_ARRAYSIZE(dayItems));
-			ImGui::Combo(u8"Ãîäèíà", &year, yearItems, IM_ARRAYSIZE(yearItems));
-			if (ImGui::CollapsingHeader("Open file"))
-			{
-				ImGui::Text("Proba");
-			}
-			ImGui::Checkbox("Another Window", &show_another_window);
-
-			ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-			ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-			if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-				counter++;
-			ImGui::SameLine();
-			ImGui::Text("counter = %d", counter);
-
-			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-			static ImS8  data[10] = { 1,2,3,4,5,6,7,8,9,10 };
-			if (ImPlot::BeginPlot("Bar Plot")) {
-				ImPlot::PlotBars("Vertical", data, 10, 0.7, 1);
-				ImPlot::PlotBars("Horizontal", data, 10, 0.4, 1, ImPlotBarsFlags_Horizontal);
-				ImPlot::EndPlot();
-			}
-			ImGui::Separator();
-			ImGui::Separator();
-			ImGui::Separator();
-			ImGui::Separator();
-			ImGui::Separator();
-			ImGui::Separator();
-			ImGui::ShowFontSelector("Font");
-			ImGui::ShowStyleSelector("ImGui Style");
-			ImGuiStyle stl = ImGui::GetStyle();
-			std::cout << stl.Colors->x << std::endl;
-			ImPlot::ShowStyleSelector("ImPlot Style");
-			ImPlot::ShowColormapSelector("ImPlot Colormap");
-			ImPlot::ShowInputMapSelector("Input Map");
-			ImGui::Separator();
-			ImGui::Checkbox("Use Local Time", &ImPlot::GetStyle().UseLocalTime);
-			ImGui::Checkbox("Use ISO 8601", &ImPlot::GetStyle().UseISO8601);
-			ImGui::Checkbox("Use 24 Hour Clock", &ImPlot::GetStyle().Use24HourClock);
-			ImGui::Separator();
-			if (ImPlot::BeginPlot("Preview")) {
-				static double now = (double)time(0);
-				ImPlot::SetupAxisScale(ImAxis_X1, ImPlotScale_Time);
-				ImPlot::SetupAxisLimits(ImAxis_X1, now, now + 24 * 3600);
-				for (int i = 0; i < 10; ++i) {
-					double x[2] = { now, now + 24 * 3600 };
-					double y[2] = { 0,i / 9.0 };
-					ImGui::PushID(i);
-					ImPlot::PlotLine("##Line", x, y, 2);
-					ImGui::PopID();
+				if (ImGui::DateChooser(u8"Дата", myDate, "%d/%m/%Y"))
+				{
+					show_status = true;
 				}
-				ImPlot::EndPlot();
+				if (show_status)
+				{
+					std::cout << "Here" << std::endl;
+					ImGui::Begin(u8"ден");
+					std::string str = std::to_string(myDate.tm_mday);
+					ImGui::Text(str.c_str());
+					ImGui::End();
+				}
+			}
+			
+			if (ImGui::CollapsingHeader(u8"Избор на измервателен уред"))
+			{
+				ImGui::Separator();
+				ImGui::Checkbox("LT0201", &lt0201);
+				ImGui::SameLine(120);
+				ImGui::Checkbox("LT0202", &lt0202);
+				ImGui::SameLine(240);
+				ImGui::Checkbox("LT0203", &lt0203);
+				ImGui::SameLine(360);
+				ImGui::Checkbox("LT0204", &lt0204);
+				ImGui::Separator();
+				ImGui::Checkbox("LT0205", &lt0205);
+				ImGui::SameLine(120);
+				ImGui::Checkbox("LT0206", &lt0206);
+				ImGui::SameLine(240);
+				ImGui::Checkbox("LT0207", &lt0207);
+				ImGui::SameLine(360);
+				ImGui::Checkbox("LT0301", &lt0301);
+			}
+
+
+			if (ImGui::CollapsingHeader(u8"Настройки"))
+			{
+				ImGui::ShowFontSelector("Font");
+				ImGui::ShowStyleSelector("ImGui Style");
+				ImGuiStyle stl = ImGui::GetStyle();
+				//std::cout << stl.Colors->x << std::endl;
+				ImPlot::ShowStyleSelector("ImPlot Style");
+				ImPlot::ShowColormapSelector("ImPlot Colormap");
+				ImPlot::ShowInputMapSelector("Input Map");
+				ImGui::Separator();
+				ImGui::Checkbox("Use Local Time", &ImPlot::GetStyle().UseLocalTime);
+				ImGui::Checkbox("Use ISO 8601", &ImPlot::GetStyle().UseISO8601);
+				ImGui::Checkbox("Use 24 Hour Clock", &ImPlot::GetStyle().Use24HourClock);
+				ImGui::Separator();
 			}
 			ImGui::End();
 		}
@@ -189,9 +190,115 @@ int main()
 		}
 
 		ImGui::Begin("Second window");
+		if (lt0201)
+		{
+
+			static double xs1[101], ys1[101], ys2[101], ys3[101];
+			srand(0);
+			for (int i = 0; i < 101; ++i) {
+				xs1[i] = (float)i;
+				ys1[i] = RandomRange(400.0, 450.0);
+				ys2[i] = RandomRange(275.0, 350.0);
+				ys3[i] = RandomRange(150.0, 225.0);
+			}
+			static bool show_lines = true;
+			static bool show_fills = true;
+			static float fill_ref = 0;
+			static int shade_mode = 0;
+			ImGui::Checkbox("Lines", &show_lines); ImGui::SameLine();
+			ImGui::Checkbox("Fills", &show_fills);
+			if (show_fills) {
+				ImGui::SameLine();
+				if (ImGui::RadioButton("To -INF", shade_mode == 0))
+					shade_mode = 0;
+				ImGui::SameLine();
+				if (ImGui::RadioButton("To +INF", shade_mode == 1))
+					shade_mode = 1;
+				ImGui::SameLine();
+				if (ImGui::RadioButton("To Ref", shade_mode == 2))
+					shade_mode = 2;
+				if (shade_mode == 2) {
+					ImGui::SameLine();
+					ImGui::SetNextItemWidth(100);
+					ImGui::DragFloat("##Ref", &fill_ref, 1, -100, 500);
+				}
+			}
+
+			if (ImPlot::BeginPlot("Stock Prices")) {
+				ImPlot::SetupAxes("Days", "Price");
+				ImPlot::SetupAxesLimits(0, 100, 0, 500);
+				if (show_fills) {
+					ImPlot::PushStyleVar(ImPlotStyleVar_FillAlpha, 0.25f);
+					ImPlot::PlotShaded("Stock 1", xs1, ys1, 101, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref);
+					ImPlot::PlotShaded("Stock 2", xs1, ys2, 101, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref);
+					ImPlot::PlotShaded("Stock 3", xs1, ys3, 101, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref);
+					ImPlot::PopStyleVar();
+				}
+				if (show_lines) {
+					ImPlot::PlotLine("Stock 1", xs1, ys1, 101);
+					ImPlot::PlotLine("Stock 2", xs1, ys2, 101);
+					ImPlot::PlotLine("Stock 3", xs1, ys3, 101);
+				}
+				ImPlot::EndPlot();
+			}
+		}
+
+
+
 		ImGui::Text("Test window");
 			ImGui::Button("Open");
 			ImGui::Separator();
+			if (lt0202)
+			{
+				static double xs1[101], ys1[101], ys2[101], ys3[101];
+				srand(0);
+				for (int i = 0; i < 101; ++i) {
+					xs1[i] = (float)i;
+					ys1[i] = RandomRange(400.0, 450.0);
+					ys2[i] = RandomRange(275.0, 350.0);
+					ys3[i] = RandomRange(150.0, 225.0);
+				}
+				static bool show_lines = true;
+				static bool show_fills = true;
+				static float fill_ref = 0;
+				static int shade_mode = 0;
+				ImGui::Checkbox("Lines", &show_lines); ImGui::SameLine();
+				ImGui::Checkbox("Fills", &show_fills);
+				if (show_fills) {
+					ImGui::SameLine();
+					if (ImGui::RadioButton("To -INF", shade_mode == 0))
+						shade_mode = 0;
+					ImGui::SameLine();
+					if (ImGui::RadioButton("To +INF", shade_mode == 1))
+						shade_mode = 1;
+					ImGui::SameLine();
+					if (ImGui::RadioButton("To Ref", shade_mode == 2))
+						shade_mode = 2;
+					if (shade_mode == 2) {
+						ImGui::SameLine();
+						ImGui::SetNextItemWidth(100);
+						ImGui::DragFloat("##Ref", &fill_ref, 1, -100, 500);
+					}
+				}
+
+				if (ImPlot::BeginPlot("Stock Prices")) {
+					ImPlot::SetupAxes("Days", "Price");
+					ImPlot::SetupAxesLimits(0, 100, 0, 500);
+					if (show_fills) {
+						ImPlot::PushStyleVar(ImPlotStyleVar_FillAlpha, 0.25f);
+						ImPlot::PlotShaded("Stock 1", xs1, ys1, 101, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref);
+						ImPlot::PlotShaded("Stock 2", xs1, ys2, 101, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref);
+						ImPlot::PlotShaded("Stock 3", xs1, ys3, 101, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref);
+						ImPlot::PopStyleVar();
+					}
+					if (show_lines) {
+						ImPlot::PlotLine("Stock 1", xs1, ys1, 101);
+						ImPlot::PlotLine("Stock 2", xs1, ys2, 101);
+						ImPlot::PlotLine("Stock 3", xs1, ys3, 101);
+					}
+					ImPlot::EndPlot();
+				}
+			}
 		ImGui::End();
 
 
