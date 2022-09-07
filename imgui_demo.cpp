@@ -6221,7 +6221,8 @@ void ImGui::ShowFontSelector(const char* label)
 bool ImGui::ShowStyleSelector(const char* label)
 {
     static int style_idx = -1;
-    if (ImGui::Combo(label, &style_idx, "Dark\0Light\0Classic\0"))
+    //if (ImGui::Combo(label, &style_idx, "Dark\0Light\0Classic\0"))
+    if (ImGui::Combo(label, &style_idx, u8"Тъмен\0Светъл\0Класически\0"))
     {
         switch (style_idx)
         {

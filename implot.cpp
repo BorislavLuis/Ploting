@@ -4725,7 +4725,8 @@ static void HelpMarker(const char* desc) {
 bool ShowStyleSelector(const char* label)
 {
     static int style_idx = -1;
-    if (ImGui::Combo(label, &style_idx, "Auto\0Classic\0Dark\0Light\0"))
+    //if (ImGui::Combo(label, &style_idx, "Auto\0Classic\0Dark\0Light\0"))
+    if (ImGui::Combo(label, &style_idx, u8"Авто\0Класически\0Тъмен\0Светъл\0"))
     {
         switch (style_idx)
         {
@@ -4745,6 +4746,23 @@ bool ShowColormapSelector(const char* label) {
     if (ImGui::BeginCombo(label, gp.ColormapData.GetName(gp.Style.Colormap))) {
         for (int i = 0; i < gp.ColormapData.Count; ++i) {
             const char* name = gp.ColormapData.GetName(i);
+            if (!strcmp(name,"Deep")) name = u8"Дълбок";
+            if (!strcmp(name,"Dark")) name = u8"Тъмен";
+            if (!strcmp(name,"Pastel")) name = u8"Пастел";
+            if (!strcmp(name,"Paired")) name = u8"Чифт";
+            if (!strcmp(name,"Viridis")) name = u8"Виридис";
+            if (!strcmp(name,"Plasma")) name = u8"Плазма";
+            if (!strcmp(name,"Hot")) name = u8"Топъл";
+            if (!strcmp(name,"Cool")) name = u8"Студен";
+            if (!strcmp(name,"Pink")) name = u8"Розов";
+            if (!strcmp(name,"Jet")) name = u8"Джет";
+            if (!strcmp(name,"Twilight")) name = u8"Здрач";
+            if (!strcmp(name,"RdBu")) name = u8"Червен";
+            if (!strcmp(name,"BrBg")) name = u8"Кафяв";
+            if (!strcmp(name,"PiYg")) name = u8"Лилав";
+            if (!strcmp(name,"Spectral")) name = u8"Спектър";
+            if (!strcmp(name,"Greys")) name = u8"Сив";
+
             if (ImGui::Selectable(name, gp.Style.Colormap == i)) {
                 gp.Style.Colormap = i;
                 ImPlot::BustItemCache();
