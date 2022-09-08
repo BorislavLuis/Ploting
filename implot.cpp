@@ -4743,7 +4743,24 @@ bool ShowStyleSelector(const char* label)
 bool ShowColormapSelector(const char* label) {
     ImPlotContext& gp = *GImPlot;
     bool set = false;
-    if (ImGui::BeginCombo(label, gp.ColormapData.GetName(gp.Style.Colormap))) {
+    const char* nm = gp.ColormapData.GetName(gp.Style.Colormap);
+    if (!strcmp(nm, "Deep")) nm = u8"Дълбок";
+    if (!strcmp(nm, "Dark")) nm = u8"Тъмен";
+    if (!strcmp(nm, "Pastel")) nm = u8"Пастел";
+    if (!strcmp(nm, "Paired")) nm = u8"Чифт";
+    if (!strcmp(nm, "Viridis")) nm = u8"Виридис";
+    if (!strcmp(nm, "Plasma")) nm = u8"Плазма";
+    if (!strcmp(nm, "Hot")) nm = u8"Топъл";
+    if (!strcmp(nm, "Cool")) nm = u8"Студен";
+    if (!strcmp(nm, "Pink")) nm = u8"Розов";
+    if (!strcmp(nm, "Jet")) nm = u8"Джет";
+    if (!strcmp(nm, "Twilight")) nm = u8"Здрач";
+    if (!strcmp(nm, "RdBu")) nm = u8"Червен";
+    if (!strcmp(nm, "BrBG")) nm = u8"Кафяв";
+    if (!strcmp(nm, "PiYG")) nm = u8"Лилав";
+    if (!strcmp(nm, "Spectral")) nm = u8"Спектър";
+    if (!strcmp(nm, "Greys")) nm = u8"Сив";
+    if (ImGui::BeginCombo(label, nm)) {
         for (int i = 0; i < gp.ColormapData.Count; ++i) {
             const char* name = gp.ColormapData.GetName(i);
             if (!strcmp(name,"Deep")) name = u8"Дълбок";
@@ -4758,8 +4775,8 @@ bool ShowColormapSelector(const char* label) {
             if (!strcmp(name,"Jet")) name = u8"Джет";
             if (!strcmp(name,"Twilight")) name = u8"Здрач";
             if (!strcmp(name,"RdBu")) name = u8"Червен";
-            if (!strcmp(name,"BrBg")) name = u8"Кафяв";
-            if (!strcmp(name,"PiYg")) name = u8"Лилав";
+            if (!strcmp(name,"BrBG")) name = u8"Кафяв";
+            if (!strcmp(name,"PiYG")) name = u8"Лилав";
             if (!strcmp(name,"Spectral")) name = u8"Спектър";
             if (!strcmp(name,"Greys")) name = u8"Сив";
 

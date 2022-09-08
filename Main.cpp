@@ -179,7 +179,6 @@ int main()
 				ImGui::ShowFontSelector(u8"Фонт");
 				ImGui::ShowStyleSelector(u8"Стил на интерфейса");
 				ImGuiStyle stl = ImGui::GetStyle();
-				//std::cout << stl.Colors->x << std::endl;
 				ImPlot::ShowStyleSelector(u8"Стил на плотера");
 				ImPlot::ShowColormapSelector(u8"Цвят на плотера");
 				ImGui::Separator();
