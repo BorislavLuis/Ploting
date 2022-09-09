@@ -13,6 +13,7 @@
 #include <iostream>
 #include <ctime>
 #include <string>
+#include "MainMenu/mainMenu.h"
 
 static int scrWidth = 1920;
 static int scrHeight = 1080;
@@ -103,15 +104,7 @@ int main()
 	bool show_status = false;
 	ImVec4 clear_color = ImVec4(0.2f, 0.7f, 0.4f, 1.0f);
 	
-	bool lt0201 = false;
-	bool lt0202 = false;
-	bool lt0203 = false;
-	bool lt0204 = false;
-	bool lt0205 = false;
-	bool lt0206 = false;
-	bool lt0207 = false;
-	bool lt0301 = false;
-	bool lt0302 = false;
+	
 	bool open = true;
 	while (!glfwWindowShouldClose(window))
 	{
@@ -128,67 +121,8 @@ int main()
 			//ImGui::ShowDemoWindow(&show_demo_window);
 
 		// 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
-		{
-			static float f = 0.0f;
-			static int counter = 0;
-			static int day = 0;
-			static int mounth = 0;
-			static int year = 0;
-			static tm myDate = {};
-			//io.Fonts->GetGlyphRangesCyrillic();
-			ImGui::Begin(u8"Главно меню");  
-			if (ImGui::CollapsingHeader(u8"Избор на дата"))
-			{
-				if (ImGui::DateChooser(u8"Дата", myDate, "%d/%m/%Y"))
-				{
-					show_status = true;
-				}
-				if (show_status)
-				{
-					std::cout << "Here" << std::endl;
-					ImGui::Begin(u8"ден");
-					std::string str = std::to_string(myDate.tm_mday);
-					ImGui::Text(str.c_str());
-					ImGui::End();
-				}
-			}
-			
-			if (ImGui::CollapsingHeader(u8"Избор на измервателен уред"))
-			{
-				ImGui::Separator();
-				ImGui::Checkbox("LT0201", &lt0201);
-				ImGui::SameLine(120);
-				ImGui::Checkbox("LT0202", &lt0202);
-				ImGui::SameLine(240);
-				ImGui::Checkbox("LT0203", &lt0203);
-				ImGui::SameLine(360);
-				ImGui::Checkbox("LT0204", &lt0204);
-				ImGui::Separator();
-				ImGui::Checkbox("LT0205", &lt0205);
-				ImGui::SameLine(120);
-				ImGui::Checkbox("LT0206", &lt0206);
-				ImGui::SameLine(240);
-				ImGui::Checkbox("LT0207", &lt0207);
-				ImGui::SameLine(360);
-				ImGui::Checkbox("LT0301", &lt0301);
-			}
+		mainMenu::getInstance()->beginWindow();
 
-
-			if (ImGui::CollapsingHeader(u8"Настройки"))
-			{
-				ImGui::ShowFontSelector(u8"Фонт");
-				ImGui::ShowStyleSelector(u8"Стил на интерфейса");
-				ImGuiStyle stl = ImGui::GetStyle();
-				ImPlot::ShowStyleSelector(u8"Стил на плотера");
-				ImPlot::ShowColormapSelector(u8"Цвят на плотера");
-				ImGui::Separator();
-				ImGui::Checkbox(u8"Изполвай местно време", &ImPlot::GetStyle().UseLocalTime);
-				ImGui::Checkbox(u8"Използвай ISO 8601", &ImPlot::GetStyle().UseISO8601);
-				ImGui::Checkbox(u8"Изполвай 24 часов часовник", &ImPlot::GetStyle().Use24HourClock);
-				ImGui::Separator();
-			}
-			ImGui::End();
-		}
 
 
 		// 3. Show another simple window.
@@ -202,7 +136,7 @@ int main()
 		}
 
 		ImGui::Begin("Second window");
-		if (lt0201)
+		if (true)
 		{
 
 			static double xs1[101], ys1[101], ys2[101], ys3[101];
@@ -260,7 +194,7 @@ int main()
 		ImGui::Text("Test window");
 			ImGui::Button("Open");
 			ImGui::Separator();
-			if (lt0202)
+			if (false)
 			{
 				static double xs1[101], ys1[101], ys2[101], ys3[101];
 				srand(0);
@@ -460,13 +394,14 @@ int main()
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
+	mainMenu::releaseSingletonInstance();
 	ImPlot::DestroyContext();
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
+	
 	glfwDestroyWindow(window);
 	glfwTerminate();
-
 	return 1;
 }
 
