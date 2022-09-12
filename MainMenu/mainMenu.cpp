@@ -107,6 +107,7 @@ mainMenu::~mainMenu()
 {
 	if (s_Instance != nullptr)
 	{
+		// Мамати 
 		delete s_Instance;
 		s_Instance = nullptr;
 	}
