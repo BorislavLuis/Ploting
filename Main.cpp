@@ -394,7 +394,7 @@ int main()
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
-	mainMenu::releaseSingletonInstance();
+	delete mainMenu::getInstance();
 	ImPlot::DestroyContext();
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
