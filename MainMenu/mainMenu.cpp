@@ -38,6 +38,7 @@ void mainMenu::beginWindow()
 void mainMenu::dateChoser()
 {
 	//проба на кирилица
+	//проба на кирилица 2
 	if (ImGui::CollapsingHeader(u8"Избор на дата"))
 	{
 		if (ImGui::DateChooser(u8"Дата", myDate, "%d/%m/%Y"))
