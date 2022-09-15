@@ -1,4 +1,4 @@
-#include "mainMenu.h"
+п»ї#include "mainMenu.h"
 mainMenu* mainMenu::s_Instance = nullptr;
 bool mainMenu::lt0201 = false;
 bool mainMenu::lt0202 = false;
@@ -28,7 +28,7 @@ mainMenu* mainMenu::getInstance()
 
 void mainMenu::beginWindow()
 {
-	ImGui::Begin(u8"Главно меню");
+	ImGui::Begin(u8"ГѓГ«Г ГўГ­Г® Г¬ГҐГ­Гѕ");
 		dateChoser();
 		instrumentChoice();
 		settings();
@@ -37,18 +37,19 @@ void mainMenu::beginWindow()
 
 void mainMenu::dateChoser()
 {
-	//проба на кирилица
-	//проба на кирилица 2
-	if (ImGui::CollapsingHeader(u8"Избор на дата"))
+	//РїСЂРѕР±Р°
+	// 
+	//ГЇГ°Г®ГЎГ  Г­Г  ГЄГЁГ°ГЁГ«ГЁГ¶Г  2
+	if (ImGui::CollapsingHeader(u8"Г€Г§ГЎГ®Г° Г­Г  Г¤Г ГІГ "))
 	{
-		if (ImGui::DateChooser(u8"Дата", myDate, "%d/%m/%Y"))
+		if (ImGui::DateChooser(u8"Г„Г ГІГ ", myDate, "%d/%m/%Y"))
 		{
 			show_status = true;
 		}
 		if (show_status)
 		{
 			std::cout << "Here" << std::endl;
-			ImGui::Begin(u8"ден");
+			ImGui::Begin(u8"Г¤ГҐГ­");
 			std::string str = std::to_string(myDate.tm_mday);
 			ImGui::Text(str.c_str());
 			ImGui::End();
@@ -58,7 +59,7 @@ void mainMenu::dateChoser()
 
 void mainMenu::instrumentChoice()
 {
-	if (ImGui::CollapsingHeader(u8"Избор на измервателен уред"))
+	if (ImGui::CollapsingHeader(u8"Г€Г§ГЎГ®Г° Г­Г  ГЁГ§Г¬ГҐГ°ГўГ ГІГҐГ«ГҐГ­ ГіГ°ГҐГ¤"))
 	{
 		ImGui::Separator();
 		ImGui::Checkbox("LT0201", &lt0201);
@@ -81,17 +82,17 @@ void mainMenu::instrumentChoice()
 
 void mainMenu::settings()
 {
-	if (ImGui::CollapsingHeader(u8"Настройки"))
+	if (ImGui::CollapsingHeader(u8"ГЌГ Г±ГІГ°Г®Г©ГЄГЁ"))
 	{
-		ImGui::ShowFontSelector(u8"Фонт");
-		ImGui::ShowStyleSelector(u8"Стил на интерфейса");
+		ImGui::ShowFontSelector(u8"Г”Г®Г­ГІ");
+		ImGui::ShowStyleSelector(u8"Г‘ГІГЁГ« Г­Г  ГЁГ­ГІГҐГ°ГґГҐГ©Г±Г ");
 		ImGuiStyle stl = ImGui::GetStyle();
-		ImPlot::ShowStyleSelector(u8"Стил на плотера");
-		ImPlot::ShowColormapSelector(u8"Цвят на плотера");
+		ImPlot::ShowStyleSelector(u8"Г‘ГІГЁГ« Г­Г  ГЇГ«Г®ГІГҐГ°Г ");
+		ImPlot::ShowColormapSelector(u8"Г–ГўГїГІ Г­Г  ГЇГ«Г®ГІГҐГ°Г ");
 		ImGui::Separator();
-		ImGui::Checkbox(u8"Изполвай местно време", &ImPlot::GetStyle().UseLocalTime);
-		ImGui::Checkbox(u8"Използвай ISO 8601", &ImPlot::GetStyle().UseISO8601);
-		ImGui::Checkbox(u8"Изполвай 24 часов часовник", &ImPlot::GetStyle().Use24HourClock);
+		ImGui::Checkbox(u8"Г€Г§ГЇГ®Г«ГўГ Г© Г¬ГҐГ±ГІГ­Г® ГўГ°ГҐГ¬ГҐ", &ImPlot::GetStyle().UseLocalTime);
+		ImGui::Checkbox(u8"Г€Г§ГЇГ®Г«Г§ГўГ Г© ISO 8601", &ImPlot::GetStyle().UseISO8601);
+		ImGui::Checkbox(u8"Г€Г§ГЇГ®Г«ГўГ Г© 24 Г·Г Г±Г®Гў Г·Г Г±Г®ГўГ­ГЁГЄ", &ImPlot::GetStyle().Use24HourClock);
 		ImGui::Separator();
 	}
 }
@@ -109,7 +110,7 @@ mainMenu::~mainMenu()
 {
 	if (s_Instance != nullptr)
 	{
-		// Мамати 
+		// ГЊГ Г¬Г ГІГЁ 
 		delete s_Instance;
 		s_Instance = nullptr;
 	}
