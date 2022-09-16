@@ -165,6 +165,7 @@
     <ClCompile Include="implot_items.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainMenu\mainMenu.cpp" />
+    <ClCompile Include="PlotsWindow\plotWindow.cpp" />
     <ClCompile Include="wrapper\menu.cpp" />
     <ClCompile Include="wrapper\sceen.cpp" />
   </ItemGroup>
@@ -182,6 +183,7 @@
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="MainMenu\mainMenu.h" />
+    <ClInclude Include="PlotsWindow\plotWindow.h" />
     <ClInclude Include="wrapper\menu.h" />
     <ClInclude Include="wrapper\sceen.h" />
   </ItemGroup>
