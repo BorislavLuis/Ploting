@@ -1,4 +1,4 @@
-// MIT License
+п»ї// MIT License
 
 // Copyright (c) 2022 Evan Pezent
 
@@ -4726,7 +4726,7 @@ bool ShowStyleSelector(const char* label)
 {
     static int style_idx = -1;
     //if (ImGui::Combo(label, &style_idx, "Auto\0Classic\0Dark\0Light\0"))
-    if (ImGui::Combo(label, &style_idx, u8"Авто\0Класически\0Тъмен\0Светъл\0"))
+    if (ImGui::Combo(label, &style_idx, u8"РђРІС‚Рѕ\0РљР»Р°СЃРёС‡РµСЃРєРё\0РўСЉРјРµРЅ\0РЎРІРµС‚СЉР»\0"))
     {
         switch (style_idx)
         {
@@ -4744,41 +4744,41 @@ bool ShowColormapSelector(const char* label) {
     ImPlotContext& gp = *GImPlot;
     bool set = false;
     const char* nm = gp.ColormapData.GetName(gp.Style.Colormap);
-    if (!strcmp(nm, "Deep")) nm = u8"Дълбок";
-    if (!strcmp(nm, "Dark")) nm = u8"Тъмен";
-    if (!strcmp(nm, "Pastel")) nm = u8"Пастел";
-    if (!strcmp(nm, "Paired")) nm = u8"Чифт";
-    if (!strcmp(nm, "Viridis")) nm = u8"Виридис";
-    if (!strcmp(nm, "Plasma")) nm = u8"Плазма";
-    if (!strcmp(nm, "Hot")) nm = u8"Топъл";
-    if (!strcmp(nm, "Cool")) nm = u8"Студен";
-    if (!strcmp(nm, "Pink")) nm = u8"Розов";
-    if (!strcmp(nm, "Jet")) nm = u8"Джет";
-    if (!strcmp(nm, "Twilight")) nm = u8"Здрач";
-    if (!strcmp(nm, "RdBu")) nm = u8"Червен";
-    if (!strcmp(nm, "BrBG")) nm = u8"Кафяв";
-    if (!strcmp(nm, "PiYG")) nm = u8"Лилав";
-    if (!strcmp(nm, "Spectral")) nm = u8"Спектър";
-    if (!strcmp(nm, "Greys")) nm = u8"Сив";
+    if (!strcmp(nm, "Deep")) nm = u8"Р”СЉР»Р±РѕРє";
+    if (!strcmp(nm, "Dark")) nm = u8"РўСЉРјРµРЅ";
+    if (!strcmp(nm, "Pastel")) nm = u8"РџР°СЃС‚РµР»";
+    if (!strcmp(nm, "Paired")) nm = u8"Р§РёС„С‚";
+    if (!strcmp(nm, "Viridis")) nm = u8"Р’РёСЂРёРґРёСЃ";
+    if (!strcmp(nm, "Plasma")) nm = u8"РџР»Р°Р·РјР°";
+    if (!strcmp(nm, "Hot")) nm = u8"РўРѕРїСЉР»";
+    if (!strcmp(nm, "Cool")) nm = u8"РЎС‚СѓРґРµРЅ";
+    if (!strcmp(nm, "Pink")) nm = u8"Р РѕР·РѕРІ";
+    if (!strcmp(nm, "Jet")) nm = u8"Р”Р¶РµС‚";
+    if (!strcmp(nm, "Twilight")) nm = u8"Р—РґСЂР°С‡";
+    if (!strcmp(nm, "RdBu")) nm = u8"Р§РµСЂРІРµРЅ";
+    if (!strcmp(nm, "BrBG")) nm = u8"РљР°С„СЏРІ";
+    if (!strcmp(nm, "PiYG")) nm = u8"Р›РёР»Р°РІ";
+    if (!strcmp(nm, "Spectral")) nm = u8"РЎРїРµРєС‚СЉСЂ";
+    if (!strcmp(nm, "Greys")) nm = u8"РЎРёРІ";
     if (ImGui::BeginCombo(label, nm)) {
         for (int i = 0; i < gp.ColormapData.Count; ++i) {
             const char* name = gp.ColormapData.GetName(i);
-            if (!strcmp(name,"Deep")) name = u8"Дълбок";
-            if (!strcmp(name,"Dark")) name = u8"Тъмен";
-            if (!strcmp(name,"Pastel")) name = u8"Пастел";
-            if (!strcmp(name,"Paired")) name = u8"Чифт";
-            if (!strcmp(name,"Viridis")) name = u8"Виридис";
-            if (!strcmp(name,"Plasma")) name = u8"Плазма";
-            if (!strcmp(name,"Hot")) name = u8"Топъл";
-            if (!strcmp(name,"Cool")) name = u8"Студен";
-            if (!strcmp(name,"Pink")) name = u8"Розов";
-            if (!strcmp(name,"Jet")) name = u8"Джет";
-            if (!strcmp(name,"Twilight")) name = u8"Здрач";
-            if (!strcmp(name,"RdBu")) name = u8"Червен";
-            if (!strcmp(name,"BrBG")) name = u8"Кафяв";
-            if (!strcmp(name,"PiYG")) name = u8"Лилав";
-            if (!strcmp(name,"Spectral")) name = u8"Спектър";
-            if (!strcmp(name,"Greys")) name = u8"Сив";
+            if (!strcmp(name,"Deep")) name = u8"Р”СЉР»Р±РѕРє";
+            if (!strcmp(name,"Dark")) name = u8"РўСЉРјРµРЅ";
+            if (!strcmp(name,"Pastel")) name = u8"РџР°СЃС‚РµР»";
+            if (!strcmp(name,"Paired")) name = u8"Р§РёС„С‚";
+            if (!strcmp(name,"Viridis")) name = u8"Р’РёСЂРёРґРёСЃ";
+            if (!strcmp(name,"Plasma")) name = u8"РџР»Р°Р·РјР°";
+            if (!strcmp(name,"Hot")) name = u8"РўРѕРїСЉР»";
+            if (!strcmp(name,"Cool")) name = u8"РЎС‚СѓРґРµРЅ";
+            if (!strcmp(name,"Pink")) name = u8"Р РѕР·РѕРІ";
+            if (!strcmp(name,"Jet")) name = u8"Р”Р¶РµС‚";
+            if (!strcmp(name,"Twilight")) name = u8"Р—РґСЂР°С‡";
+            if (!strcmp(name,"RdBu")) name = u8"Р§РµСЂРІРµРЅ";
+            if (!strcmp(name,"BrBG")) name = u8"РљР°С„СЏРІ";
+            if (!strcmp(name,"PiYG")) name = u8"Р›РёР»Р°РІ";
+            if (!strcmp(name,"Spectral")) name = u8"РЎРїРµРєС‚СЉСЂ";
+            if (!strcmp(name,"Greys")) name = u8"РЎРёРІ";
 
             if (ImGui::Selectable(name, gp.Style.Colormap == i)) {
                 gp.Style.Colormap = i;
