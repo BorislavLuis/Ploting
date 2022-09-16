@@ -28,7 +28,7 @@ mainMenu* mainMenu::getInstance()
 
 void mainMenu::beginWindow()
 {
-	ImGui::Begin(u8"Ãëàâíî ìåíþ");
+	ImGui::Begin(u8"Главно меню");
 		dateChoser();
 		instrumentChoice();
 		settings();
@@ -37,19 +37,17 @@ void mainMenu::beginWindow()
 
 void mainMenu::dateChoser()
 {
-	//проба
-	// 
-	//ïðîáà íà êèðèëèöà 2
+
 	if (ImGui::CollapsingHeader(u8"Избор на дата"))
 	{
-		if (ImGui::DateChooser(u8"Äàòà", myDate, "%d/%m/%Y"))
+		if (ImGui::DateChooser(u8"Дата", myDate, "%d/%m/%Y"))
 		{
 			show_status = true;
 		}
 		if (show_status)
 		{
 			std::cout << "Here" << std::endl;
-			ImGui::Begin(u8"äåí");
+			ImGui::Begin(u8"Дата");
 			std::string str = std::to_string(myDate.tm_mday);
 			ImGui::Text(str.c_str());
 			ImGui::End();
@@ -59,7 +57,7 @@ void mainMenu::dateChoser()
 
 void mainMenu::instrumentChoice()
 {
-	if (ImGui::CollapsingHeader(u8"Èçáîð íà èçìåðâàòåëåí óðåä"))
+	if (ImGui::CollapsingHeader(u8"Избор на измервателен уред"))
 	{
 		ImGui::Separator();
 		ImGui::Checkbox("LT0201", &lt0201);
@@ -82,37 +80,19 @@ void mainMenu::instrumentChoice()
 
 void mainMenu::settings()
 {
-	if (ImGui::CollapsingHeader(u8"Íàñòðîéêè"))
+	if (ImGui::CollapsingHeader(u8"Настройки"))
 	{
-		ImGui::ShowFontSelector(u8"Ôîíò");
-		ImGui::ShowStyleSelector(u8"Ñòèë íà èíòåðôåéñà");
+		ImGui::ShowFontSelector(u8"Шрифт");
+		ImGui::ShowStyleSelector(u8"Стил на средата");
 		ImGuiStyle stl = ImGui::GetStyle();
-		ImPlot::ShowStyleSelector(u8"Ñòèë íà ïëîòåðà");
-		ImPlot::ShowColormapSelector(u8"Öâÿò íà ïëîòåðà");
+		ImPlot::ShowStyleSelector(u8"Стил на плотера");
+		ImPlot::ShowColormapSelector(u8"Избор на цветова палитра");
 		ImGui::Separator();
-		ImGui::Checkbox(u8"Èçïîëâàé ìåñòíî âðåìå", &ImPlot::GetStyle().UseLocalTime);
-		ImGui::Checkbox(u8"Èçïîëçâàé ISO 8601", &ImPlot::GetStyle().UseISO8601);
-		ImGui::Checkbox(u8"Èçïîëâàé 24 ÷àñîâ ÷àñîâíèê", &ImPlot::GetStyle().Use24HourClock);
+		ImGui::Checkbox(u8"Използвай локално време", &ImPlot::GetStyle().UseLocalTime);
+		ImGui::Checkbox(u8"Използвай ISO 8601", &ImPlot::GetStyle().UseISO8601);
+		ImGui::Checkbox(u8"Използвай 24 часово време", &ImPlot::GetStyle().Use24HourClock);
 		ImGui::Separator();
 	}
 }
 
-void mainMenu::releaseSingletonInstance()
-{
-	if (s_Instance != nullptr)
-	{
-		delete s_Instance;
-		s_Instance = nullptr;
-	}
-}
-
-mainMenu::~mainMenu()
-{
-	if (s_Instance != nullptr)
-	{
-		// Ìàìàòè 
-		delete s_Instance;
-		s_Instance = nullptr;
-	}
-}
 

@@ -18,7 +18,6 @@ public:
 	void instrumentChoice();
 	void settings();
 	static void releaseSingletonInstance();
-	 ~mainMenu();
 private:
 	mainMenu();
 	static bool lt0201;
