@@ -40,7 +40,7 @@ void mainMenu::dateChoser()
 	//проба
 	// 
 	//ïðîáà íà êèðèëèöà 2
-	if (ImGui::CollapsingHeader(u8"Èçáîð íà äàòà"))
+	if (ImGui::CollapsingHeader(u8"Избор на дата"))
 	{
 		if (ImGui::DateChooser(u8"Äàòà", myDate, "%d/%m/%Y"))
 		{
