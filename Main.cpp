@@ -96,6 +96,7 @@ int main()
 	
 	
 	PlotWindow LIC;
+	PlotWindow FIC;
 
 	bool open = true;
 	while (!glfwWindowShouldClose(window))
@@ -126,10 +127,13 @@ int main()
 				show_another_window = false;
 			ImGui::End();
 		}
-		LIC.BeginWindow();
-
 		ImGui::ShowDemoWindow(&open);
 		ImPlot::ShowDemoWindow(&open);
+		LIC.BeginWindow();
+		FIC.BeginWindow();
+
+
+	
 		// Rendering
 		ImGui::Render();
 		int display_w, display_h;

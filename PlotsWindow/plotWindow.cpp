@@ -1,5 +1,6 @@
-#include "plotWindow.h"
-
+ï»¿#include "plotWindow.h"
+#include <fstream>
+unsigned int PlotWindow::window_num = 0;
 
 ImVec4 RandomColor() {
 	ImVec4 col;
@@ -21,13 +22,19 @@ MyDndItem::MyDndItem() {
 	Data.reserve(2880);
 	for (int k = 0; k < 2880; ++k) {
 		float t = k * 1.0f / 999;
-		Data.push_back(ImVec2(t, 0.5f + 0.5f * sinf(2 * 3.14f * t * (Idx + 1))));
+		//Data.push_back(ImVec2(t, 0.5f + 0.5f * sinf(2 * 3.14f * t * (Idx + 1))));
 	}
 }
 
 ImVec2 MyDndItem::LoadData(std::string filename)
 {
-
+	std::fstream data;
+	data.open(filename.c_str(), std::fstream::in);
+	if (data.is_open())
+	{
+		std::string temp;
+		data >> temp;
+	}
 	return ImVec2();
 }
 
@@ -38,64 +45,67 @@ void MyDndItem::Reset()
 
 PlotWindow::PlotWindow()
 {
+	window_num++;
+	window_name = u8"Ð“Ñ€Ð°Ñ„Ð¸ÐºÐ°" + std::to_string(window_num);
+	
 }
 
 void PlotWindow::BeginWindow()
 {
-
-	ImGui::Begin(u8"Ãðàôèêè");
+	
+	ImGui::Begin(window_name.c_str());
 	ImGui::Separator();
 	if (false)
-	{
-		static double xs1[101], ys1[101], ys2[101], ys3[101];
-		srand(0);
-		for (int i = 0; i < 101; ++i) {
-			xs1[i] = (float)i;
-			ys1[i] = RandomRange(400.0, 450.0);
-			ys2[i] = RandomRange(275.0, 350.0);
-			ys3[i] = RandomRange(150.0, 225.0);
-		}
-		static bool show_lines = true;
-		static bool show_fills = true;
-		static float fill_ref = 0;
-		static int shade_mode = 0;
-		ImGui::Checkbox("Lines", &show_lines); ImGui::SameLine();
-		ImGui::Checkbox("Fills", &show_fills);
-		if (show_fills) {
-			ImGui::SameLine();
-			if (ImGui::RadioButton("To -INF", shade_mode == 0))
-				shade_mode = 0;
-			ImGui::SameLine();
-			if (ImGui::RadioButton("To +INF", shade_mode == 1))
-				shade_mode = 1;
-			ImGui::SameLine();
-			if (ImGui::RadioButton("To Ref", shade_mode == 2))
-				shade_mode = 2;
-			if (shade_mode == 2) {
-				ImGui::SameLine();
-				ImGui::SetNextItemWidth(100);
-				ImGui::DragFloat("##Ref", &fill_ref, 1, -100, 500);
+		{
+			static double xs1[101], ys1[101], ys2[101], ys3[101];
+			srand(0);
+			for (int i = 0; i < 101; ++i) {
+				xs1[i] = (float)i;
+				ys1[i] = RandomRange(400.0, 450.0);
+				ys2[i] = RandomRange(275.0, 350.0);
+				ys3[i] = RandomRange(150.0, 225.0);
 			}
-		}
-
-		if (ImPlot::BeginPlot("Stock Prices")) {
-			ImPlot::SetupAxes("Days", "Price");
-			ImPlot::SetupAxesLimits(0, 100, 0, 500);
+			static bool show_lines = true;
+			static bool show_fills = true;
+			static float fill_ref = 0;
+			static int shade_mode = 0;
+			ImGui::Checkbox("Lines", &show_lines); ImGui::SameLine();
+			ImGui::Checkbox("Fills", &show_fills);
 			if (show_fills) {
-				ImPlot::PushStyleVar(ImPlotStyleVar_FillAlpha, 0.25f);
-				ImPlot::PlotShaded("Stock 1", xs1, ys1, 101, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref);
-				ImPlot::PlotShaded("Stock 2", xs1, ys2, 101, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref);
-				ImPlot::PlotShaded("Stock 3", xs1, ys3, 101, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref);
-				ImPlot::PopStyleVar();
+				ImGui::SameLine();
+				if (ImGui::RadioButton("To -INF", shade_mode == 0))
+					shade_mode = 0;
+				ImGui::SameLine();
+				if (ImGui::RadioButton("To +INF", shade_mode == 1))
+					shade_mode = 1;
+				ImGui::SameLine();
+				if (ImGui::RadioButton("To Ref", shade_mode == 2))
+					shade_mode = 2;
+				if (shade_mode == 2) {
+					ImGui::SameLine();
+					ImGui::SetNextItemWidth(100);
+					ImGui::DragFloat("##Ref", &fill_ref, 1, -100, 500);
+				}
 			}
-			if (show_lines) {
-				ImPlot::PlotLine("Stock 1", xs1, ys1, 101);
-				ImPlot::PlotLine("Stock 2", xs1, ys2, 101);
-				ImPlot::PlotLine("Stock 3", xs1, ys3, 101);
+
+			if (ImPlot::BeginPlot("Stock Prices")) {
+				ImPlot::SetupAxes("Days", "Price");
+				ImPlot::SetupAxesLimits(0, 100, 0, 500);
+				if (show_fills) {
+					ImPlot::PushStyleVar(ImPlotStyleVar_FillAlpha, 0.25f);
+					ImPlot::PlotShaded("Stock 1", xs1, ys1, 101, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref);
+					ImPlot::PlotShaded("Stock 2", xs1, ys2, 101, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref);
+					ImPlot::PlotShaded("Stock 3", xs1, ys3, 101, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref);
+					ImPlot::PopStyleVar();
+				}
+				if (show_lines) {
+					ImPlot::PlotLine("Stock 1", xs1, ys1, 101);
+					ImPlot::PlotLine("Stock 2", xs1, ys2, 101);
+					ImPlot::PlotLine("Stock 3", xs1, ys3, 101);
+				}
+				ImPlot::EndPlot();
 			}
-			ImPlot::EndPlot();
 		}
-	}
 
 
 	ImGui::BulletText("Drag/drop items from the left column.");
@@ -113,8 +123,9 @@ void PlotWindow::BeginWindow()
 	 // for plot 2
 
 	// child window to serve as initial source for our DND items
-	ImGui::BeginChild(u8"Ëÿâà ÷àñò", ImVec2(100, 600));
-		if (ImGui::Button(u8"Ðåñåò")) {
+	ImGui::BeginChild(u8"ÐÐ°Ñ‡Ð°Ð»ÐµÐ½ ÐµÐºÑ€Ð°Ð½", ImVec2(100, 600));
+		if (ImGui::Button(u8"Ð ÐµÑÐµÑ‚"))
+		{
 			for (int k = 0; k < k_dnd; ++k)
 				dnd[k].Reset();
 			dndx = dndy = NULL;
@@ -140,13 +151,13 @@ void PlotWindow::BeginWindow()
 	}
 
 	ImGui::SameLine();
-	ImGui::BeginChild(u8"Äÿñíà ÷àñò", ImVec2(-1, 400));
+	ImGui::BeginChild(u8"ÐŸÐ»Ð¾Ñ‚", ImVec2(-1, 600));
 	// plot 1 (time series)
 	ImPlotAxisFlags flags = ImPlotAxisFlags_NoHighlight;
-	if (ImPlot::BeginPlot("##DND1", ImVec2(-1, 395))) {
+	if (ImPlot::BeginPlot("##DND1", ImVec2(-1, 600))) {
 		ImPlot::SetupAxis(ImAxis_X1, NULL, flags);
-		ImPlot::SetupAxis(ImAxis_Y1, u8"[ïóñíè òóê]", flags | ImPlotAxisFlags_Lock);
-		ImPlot::SetupAxis(ImAxis_Y2, u8"[ïóñíè òóê]", flags | ImPlotAxisFlags_Lock | ImPlotAxisFlags_Opposite);
+		ImPlot::SetupAxis(ImAxis_Y1, u8"[Ð¿ÑƒÑÐ½Ð¸ Ñ‚ÑƒÐº]", flags | ImPlotAxisFlags_Lock);
+		ImPlot::SetupAxis(ImAxis_Y2, u8"[Ð¿ÑƒÑÐ½Ð¸ Ñ‚ÑƒÐº]", flags | ImPlotAxisFlags_Lock | ImPlotAxisFlags_Opposite);
 		//ImPlot::SetupAxis(ImAxis_Y3, "[drop here]", flags | ImPlotAxisFlags_Opposite);
 
 		for (int k = 0; k < k_dnd; ++k) {

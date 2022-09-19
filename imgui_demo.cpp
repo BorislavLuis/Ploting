@@ -1,4 +1,4 @@
-// dear imgui, v1.89 WIP
+п»ї// dear imgui, v1.89 WIP
 // (demo code)
 
 // Help:
@@ -6222,7 +6222,7 @@ bool ImGui::ShowStyleSelector(const char* label)
 {
     static int style_idx = -1;
     //if (ImGui::Combo(label, &style_idx, "Dark\0Light\0Classic\0"))
-    if (ImGui::Combo(label, &style_idx, u8"Тъмен\0Светъл\0Класически\0"))
+    if (ImGui::Combo(label, &style_idx, u8"РўСЉРјРµРЅ\0РЎРІРµС‚СЉР»\0РљР»Р°СЃРёС‡РµСЃРєРё\0"))
     {
         switch (style_idx)
         {

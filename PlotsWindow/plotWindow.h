@@ -1,4 +1,4 @@
-#ifndef PLOTWINDOW_H
+﻿#ifndef PLOTWINDOW_H
 #define PLOTWINDOW_H
 #include "../imgui.h"
 #include "../implot.h"
@@ -37,6 +37,8 @@ private:
 	MyDndItem  dnd[20];
 	MyDndItem* dndx = NULL; // for plot 2
 	MyDndItem* dndy = NULL;
+	static unsigned int window_num;
+	std::string window_name;
 };
 
 #endif
